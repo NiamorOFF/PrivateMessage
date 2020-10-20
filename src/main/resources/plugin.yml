@@ -1,0 +1,23 @@
+name: PrivateMessage
+version: 1.0
+author: NiamorOFF
+main: fr.niamoroff.privatemessage.PrivateMessage
+database: false
+description : This plugin allows players to send private messages to each other.
+website: https://github.com/NiamorOFF
+
+commands:
+  privatemessage:
+    description: See the plugin help message.
+    aliases: [mp, mphelp]
+    usage: /privatemessage
+
+  message:
+    description: Send a private message to a player.
+    aliases: [msg, tell, whisper, m, w, t]
+    usage: /message <player> <message>
+
+  answer:
+    description: Reply to a private message.
+    aliases: [r,reply]
+    usage: /answer <message>
