@@ -33,18 +33,19 @@ public class Message {
 
     private void sendMessage() {
         this.author.sendMessage(instance.getMessageFromConfig("message-sent")
-                .replaceAll("%receivername%", getRightName(receiver))
+                .replaceAll("%receivername%", instance.getRightName(receiver))
                 .replaceAll("%message%", message));
         this.receiver.sendMessage(instance.getMessageFromConfig("message-received")
-                .replaceAll("%authorname%", getRightName(author))
+                .replaceAll("%authorname%", instance.getRightName(author))
                 .replaceAll("%message%", message));
-        instance.getDiscussions().put(getRightName(receiver), getRightName(author));
-        instance.getDiscussions().put(getRightName(author), getRightName(receiver));
+        instance.getDiscussions().put(instance.getRightName(receiver), instance.getRightName(author));
+        instance.getDiscussions().put(instance.getRightName(author), instance.getRightName(receiver));
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if(!player.hasPermission("privatemessage.socialpsy")) return;
-            player.sendMessage(instance.getMessageFromConfig("socialpsy-message")
-                    .replaceAll("%authorname%", getRightName(author))
-                    .replaceAll("%receivername%", getRightName(receiver))
+            if(!player.hasPermission("privatemessage.socialspy")) break;
+            if(!instance.getSocialspyActivated().contains(player.getName())) break;
+            player.sendMessage(instance.getMessageFromConfig("socialspy-message")
+                    .replaceAll("%authorname%", instance.getRightName(author))
+                    .replaceAll("%receivername%", instance.getRightName(receiver))
                     .replaceAll("%message%", message));
         }
         logMessage();
@@ -56,17 +57,12 @@ public class Message {
         try {
             FileWriter fileWriter = new FileWriter(instance.getLogFile(), true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("[" + date + "] " + getRightName(author) + " » " + getRightName(receiver) + " : " + message);
+            bufferedWriter.write("[" + date + "] " + instance.getRightName(author) + " » " + instance.getRightName(receiver) + " : " + message);
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private String getRightName(CommandSender user) {
-        if(!user.getName().equals("CONSOLE")) return user.getName();
-        return instance.getMessageFromConfig("console-name");
     }
 }

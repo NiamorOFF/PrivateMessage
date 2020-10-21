@@ -26,12 +26,12 @@ public class AnswerCommand implements CommandExecutor {
             return true;
         }
 
-        if(!instance.getDiscussions().containsKey(sender.getName())) {
+        if(!instance.getDiscussions().containsKey(instance.getRightName(sender))) {
             sender.sendMessage(instance.getMessageFromConfig("no-body-to-answer"));
             return true;
         }
 
-        String nameAuthor = instance.getDiscussions().get(sender.getName());
+        String nameAuthor = instance.getDiscussions().get(instance.getRightName(sender));
         CommandSender author;
 
         if(nameAuthor.equals(instance.getMessageFromConfig("console-name"))) {

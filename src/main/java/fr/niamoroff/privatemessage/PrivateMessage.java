@@ -3,13 +3,17 @@ package fr.niamoroff.privatemessage;
 import fr.niamoroff.privatemessage.commands.AnswerCommand;
 import fr.niamoroff.privatemessage.commands.MessageCommand;
 import fr.niamoroff.privatemessage.commands.PrivateMessageCommand;
+import fr.niamoroff.privatemessage.commands.SocialspyCommand;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PrivateMessage extends JavaPlugin {
 
@@ -21,6 +25,7 @@ public class PrivateMessage extends JavaPlugin {
     private File frenchFile;
     private File logFile;
     private HashMap<String, String> discussions;
+    private ArrayList<String> socialspyActivated;
 
     @Override
     public void onEnable() {
@@ -31,6 +36,7 @@ public class PrivateMessage extends JavaPlugin {
         this.fileTranslation = instance.getTranslationFile();
         this.logFile = new File("plugins/PrivateMessage/logs.txt");
         this.discussions = new HashMap<String, String>();
+        this.socialspyActivated = new ArrayList<String>();
         registerCommands();
     }
 
@@ -38,6 +44,7 @@ public class PrivateMessage extends JavaPlugin {
         this.getCommand("privatemessage").setExecutor(new PrivateMessageCommand(instance));
         this.getCommand("message").setExecutor(new MessageCommand(instance));
         this.getCommand("answer").setExecutor(new AnswerCommand(instance));
+        this.getCommand("socialspy").setExecutor(new SocialspyCommand(instance));
     }
 
     private YamlConfiguration getTranslationFile() {
@@ -85,6 +92,10 @@ public class PrivateMessage extends JavaPlugin {
         return discussions;
     }
 
+    public List<String> getSocialspyActivated() {
+        return socialspyActivated;
+    }
+
     public void createTranslationConfig() {
         englishFile = new File(getDataFolder(), "translation_english.yml");
         spanishFile = new File(getDataFolder(), "translation_spanish.yml");
@@ -103,5 +114,10 @@ public class PrivateMessage extends JavaPlugin {
 
     public String getMessageFromConfig(String path) {
         return ChatColor.translateAlternateColorCodes('&', instance.getFileTranslation().getString(path));
+    }
+
+    public String getRightName(CommandSender user) {
+        if(!user.getName().equals("CONSOLE")) return user.getName();
+        return instance.getMessageFromConfig("console-name");
     }
 }
