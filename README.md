@@ -9,7 +9,7 @@
  - /answer (message) » Reply to the last private message received.
  - /message (player) (message) » Send a private message to a connected player.
  - /privatemessage » Display a help message.
- - /socialpsy » Toggle the possibility to see private exchanges between players.
+ - /socialspy » Toggle the possibility to see private exchanges between players.
 
 ## Features
  - Possibility to send colored messages (requires special permission).
@@ -22,5 +22,5 @@
  - privatemessage.answer » Allow using /answer command.
  - privatemessage.message » Allow using /message command.
  - privatemessage.help » Allow using /privatemessage command.
- - privatemessage.socialpsy » Allow to see private messages between players.
+ - privatemessage.socialspy » Allow to see private messages between players.
  - messageprivate.chatcolor » Allow using color codes for messages.
