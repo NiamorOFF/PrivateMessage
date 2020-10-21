@@ -1,0 +1,34 @@
+############################################################
+# +------------------------------------------------------+ #
+# |                         Notes                        | #
+# +------------------------------------------------------+ #
+############################################################
+
+# This file allows to configurate PrivateMessage plugin.
+# Plugin developped by NiamorOFF (Twitter : @NiamorOFF).
+
+############################################################
+# +------------------------------------------------------+ #
+# |          PrivateMessage English Translation          | #
+# +------------------------------------------------------+ #
+############################################################
+
+no-permission: "&8&l[&e!&8&l]&c You do not have permission to perform this command."
+usage-answer: "&8&l[&e!&8&l]&c Incorrect command ! &7&o(/reply <message>)"
+no-body-to-answer: "&8&l[&e!&8&l]&c You have no one to answer."
+target-disconnected: "&8&l[&e!&8&l]&c Your exchange partner (&e%targetname%&c) has disconnected."
+usage-message: "&8&l[&e!&8&l]&c Incorrect command ! &7&o(/msg <player> <message>)"
+target-not-found: "&8&l[&e!&8&l]&c Player &e%targetname%&c is not logged in."
+can-not-write-to-yourself: "&8&l[&e!&8&l]&c You cannot write to yourself."
+message-sent: "&8&l[&eMP&8&l]&a You &f\u00bb &a%receivername%&f : &e%message%"
+message-received: "&8&l[&eMP&8&l]&a %authorname% &f\u00bb &You&f : &e%message%"
+socialpsy-message: "&8&l[&eSocialPsy&8&l]&a %authorname% &f\u00bb &a%receivername%&f : &e%message%"
+console-name : "Console"
+
+help-line-one: "&6---------------------- &9PrivateMessage &6----------------------"
+help-line-two: "&2/answer <message> &c\u00bb &5Reply to the last message received."
+help-line-three: "&2/message <player> <message> &c\u00bb &5Send a message to a player."
+help-line-four: "&2/privatemessage &c\u00bb &5Display this help message."
+help-line-five: "&2/socialpsy &c\u00bb &5See (or not) all private messages between players."
+help-line-six: "&3\u21d2 Plugin developed by NiamorOFF &7&o(Twitter : @NiamorOFF)&3."
+help-line-seven: "&6---------------------- &9PrivateMessage &6----------------------"

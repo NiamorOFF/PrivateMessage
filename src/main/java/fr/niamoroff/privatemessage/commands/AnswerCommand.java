@@ -1,5 +1,6 @@
 package fr.niamoroff.privatemessage.commands;
 
+import fr.niamoroff.privatemessage.Message;
 import fr.niamoroff.privatemessage.PrivateMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -16,31 +17,31 @@ public class AnswerCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission("privatemessage.answer")) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Vous n'avez pas la permission d'effectuer cette commande.");
+            sender.sendMessage(instance.getMessageFromConfig("no-permission"));
             return true;
         }
 
         if(args.length == 0) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Commande incorrecte ! §7§o(/reply <message>)");
+            sender.sendMessage(instance.getMessageFromConfig("usage-answer"));
             return true;
         }
 
         if(!instance.getDiscussions().containsKey(sender.getName())) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Vous n'avez personne à qui répondre.");
+            sender.sendMessage(instance.getMessageFromConfig("no-body-to-answer"));
             return true;
         }
 
         String nameAuthor = instance.getDiscussions().get(sender.getName());
         CommandSender author;
 
-        if(nameAuthor.equals("CONSOLE")) {
+        if(nameAuthor.equals(instance.getMessageFromConfig("console-name"))) {
             author = Bukkit.getConsoleSender();
         } else {
             author = Bukkit.getPlayer(nameAuthor);
         }
 
         if(author == null) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Votre partenaire d'échange (§e"+ nameAuthor +"§c) a déconnecté.");
+            sender.sendMessage(instance.getMessageFromConfig("target-disconnected").replaceAll("%targetname%", nameAuthor));
             return true;
         }
 

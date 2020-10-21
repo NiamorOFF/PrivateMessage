@@ -1,14 +1,21 @@
 package fr.niamoroff.privatemessage.commands;
 
+import fr.niamoroff.privatemessage.PrivateMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class PrivateMessageCommand implements CommandExecutor {
 
+    private final PrivateMessage instance;
+
+    public PrivateMessageCommand (PrivateMessage instance) {
+        this.instance = instance;
+    }
+
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission("privatemessage.help")) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Vous n'avez pas la permission d'effectuer cette commande.");
+            sender.sendMessage(instance.getMessageFromConfig("no-permission"));
             return true;
         }
         sendHelpMessage(sender);
@@ -16,11 +23,12 @@ public class PrivateMessageCommand implements CommandExecutor {
     }
 
     private void sendHelpMessage(CommandSender sender) {
-        sender.sendMessage("§6---------------------- §9PrivateMessage §6----------------------");
-        sender.sendMessage("§2/privatemessage §c» §5Afficher ce message d'aide.");
-        sender.sendMessage("§2/message <joueur> <message> §c» §5Envoyer un message à un joueur.");
-        sender.sendMessage("§2/answer <message> §c» §5Répondre au dernier message reçu.");
-        sender.sendMessage("§3⇒ Plugin développé par NiamorOFF §7§o(Twitter : @NiamorOFF)§3.");
-        sender.sendMessage("§6---------------------- §9PrivateMessage §6----------------------");
+        sender.sendMessage(instance.getMessageFromConfig("help-line-one"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-two"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-three"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-four"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-five"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-six"));
+        sender.sendMessage(instance.getMessageFromConfig("help-line-seven"));
     }
 }

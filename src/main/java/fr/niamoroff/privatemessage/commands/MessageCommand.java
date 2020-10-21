@@ -1,5 +1,6 @@
 package fr.niamoroff.privatemessage.commands;
 
+import fr.niamoroff.privatemessage.Message;
 import fr.niamoroff.privatemessage.PrivateMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -17,23 +18,30 @@ public class MessageCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!sender.hasPermission("privatemessage.message")) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Vous n'avez pas la permission d'effectuer cette commande.");
+            sender.sendMessage(instance.getMessageFromConfig("no-permission"));
             return true;
         }
 
         if(args.length < 2) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Commande incorrecte ! §7§o(/msg <joueur> <message>)");
+            sender.sendMessage(instance.getMessageFromConfig("usage-message"));
             return true;
         }
 
-        Player receiver = Bukkit.getPlayer(args[0]);
+        Player receiver = null;
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if(player.getName().equalsIgnoreCase(args[0])) {
+                receiver = player;
+                break;
+            }
+        }
+
         if(receiver == null) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Le joueur §e" + args[0] + " §c n'est pas connecté.");
+            sender.sendMessage(instance.getMessageFromConfig("target-not-found").replaceAll("%targetname%", args[0]));
             return true;
         }
 
         if (sender.getName().equals(receiver.getName())) {
-            sender.sendMessage("§8§l[§e!§8§l]§c Vous ne pouvez pas vous écrire à vous-même.");
+            sender.sendMessage(instance.getMessageFromConfig("can-not-write-to-yourself"));
             return true;
         }
 
